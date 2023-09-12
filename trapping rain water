@@ -1,0 +1,55 @@
+
+            // METHOD 1
+//takes 657ms run time(own)
+class Solution {
+    public int trap(int[] height) {
+        int sum=0;
+        for(int i=1;i<height.length-1;i++)
+        {
+            int max1=0,max2=0;
+            for(int j=i;j>=0;j--)
+            {
+                max1=Math.max(max1,height[j]);
+            }
+            for(int k=i;k<height.length;k++){
+                max2=Math.max(max2,height[k]);
+            }
+            sum+=(Math.min(max1,max2)-height[i]);
+        }
+        return sum;
+    }
+}
+
+         //  METHOD 2
+//takes 0ms run time
+class Solution {
+    public int trap(int[] height) {
+        int n = height.length;
+        int l = 0;
+        int r = n-1;
+        int leftMax = 0;
+        int rightMax = 0;
+        int res = 0;
+
+        while(l < r){
+            if(height[l] <= height[r]){
+
+                if(height[l] >= leftMax){
+                    leftMax = height[l];
+                }else{
+                    res += leftMax - height[l];
+                }
+                l++;
+            }else {
+                
+                if(height[r] >= rightMax){
+                    rightMax = height[r];
+                }else{
+                    res += rightMax - height[r];
+                }
+                r--;                
+            }
+        }
+        return res;
+    }
+}
